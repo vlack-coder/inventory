@@ -7,7 +7,6 @@ import { addType } from "../redux/typeSlice";
 function ManageTypes() {
   const dispatch = useDispatch();
   const types = useSelector((state: any) => state.type.types);
-  console.log("types", types);
   const addTyp = () => {
     dispatch(addType({ id: uuid().slice(0, 8) }));
   };
@@ -30,7 +29,9 @@ function ManageTypes() {
       </button>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
         {Object.keys(types).map((e: any, index: any) => {
-          return <Dynamic index={index} formValues={types[e]} id={e} />;
+          return (
+            <Dynamic key={index} index={index} formValues={types[e]} id={e} />
+          );
         })}
       </div>
     </div>

@@ -1,24 +1,19 @@
 import { Controller, useForm } from "react-hook-form";
 
 import { useDispatch, useSelector } from "react-redux";
+import { removeRes } from "../redux/resSlice";
 
 // import "./form.css";
 import CustomResInput from "./FormFields/CustomResInput";
 
-const ResForm = ({ formValues, id, formIndex, home }: any) => {
+const ResForm = ({ formValues, id }: any) => {
   const { control } = useForm();
   const resources = useSelector((state: any) => state.resource.resource);
-  // console.log("www", { formvalue, id, formIndex });
-  let formvalue = home ? formValues.value : formValues;
-
-  const formInputs = formvalue.value.map((e: any, index: any) => {
+  const dispatch = useDispatch();
+  const formInputs = formValues.value.map((e: any, index: any) => {
     const { opt, value, label } = e;
-    console.log("indexes", formValues);
-    console.log("index", resources);
-
     return (
-      <section key={index}>
-        {/* <label>{label}</label> */}
+      <section >
         <Controller
           name={index.toString()}
           control={control}
@@ -30,20 +25,15 @@ const ResForm = ({ formValues, id, formIndex, home }: any) => {
                   // value={field.value}
                   // value={resources[id][formIndex][index].data}
                   value={
-                    home
-                      ? formValues.value.find(
-                          (v: any) => v.id === formValues.id
-                        ).value[index].data
-                      : resources[id].find((v: any) => v.id === formvalue.id).value[index].data
+                    resources[id].find((v: any) => v.id === formValues.id)
+                      .value[index].data
                   }
                   onChange={field.onChange}
                   inpProp={e}
                   label={label || value}
                   index={index}
                   id={id}
-                  formIndex={formIndex}
-                  formId={home ? formValues.id : formvalue.id}
-                  // {...ResFormForm[e]}
+                  formId={formValues.id}
                 />
               </div>
             );
@@ -54,10 +44,17 @@ const ResForm = ({ formValues, id, formIndex, home }: any) => {
   });
 
   return (
-    <div className="form">
+    <div className="resform">
       <div className="res__header">
-        <p>{formvalue.value[0].value}</p>
-        <p>x</p>
+        <p>{formValues.value[0].value}</p>
+        <p
+          onClick={() =>
+            dispatch(removeRes({ id: formValues.id, resId: id }))
+          }
+          style={{ cursor: "pointer" }}
+        >
+          x
+        </p>
       </div>
       <div className="resform__body">
         <div style={{ display: "flex", flexDirection: "column" }}>

@@ -17,16 +17,23 @@ export const resourceSlice = createSlice({
         ? (state.resource[id] = [...state.resource[id], action?.payload.res])
         : (state.resource[id] = [action?.payload.res]);
     },
+    removeRes(state: any, action) {
+      console.log("action", action);
+      const { id, resId } = action.payload;
+      state.resource[resId] = state.resource[resId].filter(
+        (v: any) => v.id !== id
+      );
+    },
     addResValue(state: any, action) {
       console.log("action", action);
-      const { index, id, value, formIndex, formId } = action.payload;
+      const { index, id, value, formId } = action.payload;
       // state.resource[id][formIndex][index].data = value;
-      state.resource[id].find((v: any) => v.id === formId)
-      .value[index].data = value
+      state.resource[id].find((v: any) => v.id === formId).value[index].data =
+        value;
     },
   },
 });
 
-export const { addRes, addResValue } = resourceSlice.actions;
+export const { addRes, addResValue, removeRes } = resourceSlice.actions;
 
 export default resourceSlice.reducer;

@@ -10,10 +10,8 @@ function SingleRes() {
   const { type } = useParams();
   const types = useSelector((state: any) => state.type.types);
   const resources = useSelector((state: any) => state.resource.resource);
-  console.log("resources", resources);
 
   const addItem = (p: any) => {
-    // console.log("types[para]", types[p]);
     dispatch(
       addRes({ res: { id: uuid().slice(0, 8), value: types[p] }, id: type })
     );
@@ -38,8 +36,7 @@ function SingleRes() {
           type &&
           resources.hasOwnProperty(type) &&
           resources[type].map((e: any, index: any) => {
-            console.log("essw", e);
-            return <ResForm formValues={e} id={type} formIndex={index} />;
+            return <ResForm key={index}formValues={e} id={type}/>;
           })}
       </div>
     </>
