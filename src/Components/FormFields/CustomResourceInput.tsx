@@ -7,7 +7,6 @@ function CustomResInput(
   { type, onChange, value, label, index, id, formId }: any,
   ...rest: any
 ) {
-  // console.log("valuedate", new Date(value), value);
   const dispatch = useDispatch();
 
   const changeText = (p: any) => {
@@ -42,10 +41,8 @@ function CustomResInput(
             type={"text"}
             onChange={(e: any) => {
               changeText({ index, value: e.target.value, id, formId });
-              // return onChange(e.target.value);
-              // return onChange(value);
             }}
-            // placeholder="enter field"
+            placeholder="enter field"
             value={value}
           />
         </div>
@@ -79,13 +76,13 @@ function CustomResInput(
           </p>
           <DatePicker
             selected={value && new Date(value)}
-            // selected={value}
+            placeholderText="add date"
             onChange={(date: Date) => {
               onChange(date);
               changeText({
                 index,
                 value: new Date(date),
-                // value: date,
+
                 id,
                 formId,
               });
