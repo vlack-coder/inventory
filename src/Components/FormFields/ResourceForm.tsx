@@ -1,10 +1,9 @@
 import { Controller, useForm } from "react-hook-form";
 
 import { useDispatch, useSelector } from "react-redux";
-import { removeRes } from "../redux/resSlice";
+import { removeRes } from "../../redux/resSlice";
 
-// import "./form.css";
-import CustomResInput from "./FormFields/CustomResInput";
+import CustomResInput from "./CustomResourceInput";
 
 const ResForm = ({ formValues, id }: any) => {
   const { control } = useForm();
@@ -13,7 +12,7 @@ const ResForm = ({ formValues, id }: any) => {
   const formInputs = formValues.value.map((e: any, index: any) => {
     const { opt, value, label } = e;
     return (
-      <section >
+      <section>
         <Controller
           name={index.toString()}
           control={control}
@@ -22,8 +21,6 @@ const ResForm = ({ formValues, id }: any) => {
               <div>
                 <CustomResInput
                   type={opt}
-                  // value={field.value}
-                  // value={resources[id][formIndex][index].data}
                   value={
                     resources[id].find((v: any) => v.id === formValues.id)
                       .value[index].data
@@ -43,14 +40,17 @@ const ResForm = ({ formValues, id }: any) => {
     );
   });
 
+  const titleHeader = resources[id]
+    .find((v: any) => v.id === formValues.id)
+    .value.find((v: any) => v.value === formValues.value[1].data).data;
   return (
     <div className="resform">
       <div className="res__header">
-        <p>{formValues.value[0].value}</p>
+        <p>
+          {formValues.value[0].value} - {titleHeader}
+        </p>
         <p
-          onClick={() =>
-            dispatch(removeRes({ id: formValues.id, resId: id }))
-          }
+          onClick={() => dispatch(removeRes({ id: formValues.id, resId: id }))}
           style={{ cursor: "pointer" }}
         >
           x

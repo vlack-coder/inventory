@@ -1,15 +1,20 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addValue, changeField } from "../../redux/typeSlice";
-import TextInput from "./TextInput";
-import DatePicker from "react-datepicker";
+import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
+import { addValue, changeField , changeTitle} from "../../redux/typeSlice";
 
 function CustomInput(
   { type, onChange, value, label, index, id, se, opt }: any,
   ...rest: any
 ) {
+  const types = useSelector((state: any) => state.type.types);
+
+  const tOptions = types[id]
+    .slice(2)
+    .map((v: any) => ({ label: v.value, value: v.value }))
+    .filter((v: any) => v.value !== "");
+  // console.log("tOptions", tOptions);
   const dispatch = useDispatch();
   const changeText = (p: any) => {
     dispatch(addValue(p));
@@ -20,6 +25,13 @@ function CustomInput(
   const selectField = (p: any) => {
     dispatch(changeField(p));
   };
+  
+  const addTitle = (p: any) => {
+    dispatch(changeTitle(p));
+  };
+  // const selectTitle = (p: any) => {
+  //   dispatch(changeField(p));
+  // };
   const options = [
     { value: "text", label: "small text" },
     { value: "LongText", label: "long text" },
@@ -28,6 +40,37 @@ function CustomInput(
     { value: "remove", label: "remove" },
   ];
   const [selectedOption, setSelectedOption] = useState(options);
+  // titleCustomStyles
+  const titleCustomStyles = {
+    option: (provided: any, state: any) => ({
+      ...provided,
+      borderBottom: "1px dotted black",
+      color: state.isSelected ? "red" : "blue",
+      padding: 5,
+      // width: "100px"
+    }),
+    control: (provided: any, state: any) => ({
+      ...provided,
+      minHeight: "26px",
+      height: "26px",
+      // width: "110px",
+      width: "100%",
+      fontSize: "13px",
+    }),
+    // input: (provided: any, state: any) => ({
+    //   ...provided,
+    //   margin: "0px",
+    // }),
+    indicatorSeparator: (state: any) => ({
+      display: "none",
+    }),
+    indicatorsContainer: (provided: any, state: any) => ({
+      ...provided,
+      height: "26px",
+      //   label: <HiSelector />
+    }),
+  };
+
   const customStyles = {
     option: (provided: any, state: any) => ({
       ...provided,
@@ -75,8 +118,8 @@ function CustomInput(
               <Select
                 // defaultValue={options}
                 onChange={(value) => selectField({ value, id, index })}
-                defaultValue={{ value: opt, label: opt }}
-                value={defaultValue(selectedOption, value)}
+                defaultValue={options[0]}
+                // value={defaultValue(selectedOption, value)}
                 options={options}
                 styles={customStyles}
                 placeholder="Add Field"
@@ -85,6 +128,22 @@ function CustomInput(
           </div>
         </div>
       );
+    case "select":
+      return (
+        <div className="inp" style={{ marginBottom: "10px" }}>
+          <p>{label}</p>
+          <Select
+            // defaultValue={options}
+            onChange={(value) => addTitle({ value, id })}
+            defaultValue={tOptions[0]}
+            // value={defaultValue(selectedOption, value)}
+            options={tOptions}
+            styles={titleCustomStyles}
+            placeholder="Add Field"
+          />
+        </div>
+      );
+
     default:
       return null;
       break;

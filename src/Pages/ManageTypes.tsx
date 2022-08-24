@@ -1,7 +1,6 @@
-import "./tes.css";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
-import Dynamic from "../Components/FormFields/DynamicForm";
+import Dynamic from "../Components/FormFields/DynamicTypeForm";
 import { addType } from "../redux/typeSlice";
 
 function ManageTypes() {

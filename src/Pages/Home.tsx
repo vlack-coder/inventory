@@ -1,20 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import ResForm from "../Components/ResForm";
-import { addRes } from "../redux/resSlice";
-import { v4 as uuid } from "uuid";
+import ResourceForm from "../Components/FormFields/ResourceForm";
+import { addResource } from "../redux/resSlice";
 
 function Home() {
   const dispatch = useDispatch();
-  // const { type } = useParams();
   const types = useSelector((state: any) => state.type.types);
   const resources = useSelector((state: any) => state.resource.resource);
   const addItem = (p: any) => {
     console.log("types[para]", types[p]);
-    dispatch(addRes({ res: types[p], id: "type" }));
+    dispatch(addResource({ res: types[p], id: "type" }));
   };
-  let p = "";
-  const res = Object.keys(resources);
-  const reso = res.map((v) => resources[v]);
+  const resourceIds = Object.keys(resources);
+  const getResourcesFromId = resourceIds.map((v) => resources[v]);
   return (
     <div>
       {/* <Dynamic/> */}
@@ -32,12 +29,15 @@ function Home() {
         Add Item
       </button>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-        {
-          reso.map((ress, index) =>
-            ress.map((r: any) => <ResForm key={index} formValues={r} id={res[index]} />)
-          )
-
-        }
+        {getResourcesFromId.map((ress, index) =>
+          ress.map((resource: any) => (
+            <ResourceForm
+              key={index}
+              formValues={resource}
+              id={resourceIds[index]}
+            />
+          ))
+        )}
       </div>
     </div>
   );

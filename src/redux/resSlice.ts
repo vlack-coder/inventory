@@ -1,17 +1,14 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   resource: {},
 };
-const res = {
-  ijs: [[], []],
-  jkl: [[], []],
-};
+
 export const resourceSlice = createSlice({
   name: "resource",
   initialState,
   reducers: {
-    addRes(state: any, action) {
+    addResource(state: any, action) {
       const { id } = action.payload;
       state.resource.hasOwnProperty(id)
         ? (state.resource[id] = [...state.resource[id], action?.payload.res])
@@ -34,6 +31,6 @@ export const resourceSlice = createSlice({
   },
 });
 
-export const { addRes, addResValue, removeRes } = resourceSlice.actions;
+export const { addResource, addResValue, removeRes } = resourceSlice.actions;
 
 export default resourceSlice.reducer;

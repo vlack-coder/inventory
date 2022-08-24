@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   types: {},
@@ -13,7 +13,15 @@ export const appSlice = createSlice({
       // console.log('action.payload', action.payload)
       state.types[action.payload.id] = [
         { label: "Object type", value: "", opt: "text", data: "", se: true },
-        { label: "Object title", value: "", opt: "text", data: "", se: true },
+        {
+          label: "Object title",
+          value: "",
+          opt: "select",
+          data: "",
+          se: true,
+          select: true,
+        },
+        { value: "Title", opt: "text", data: "" },
       ];
       console.log("state.types", state.types);
     },
@@ -40,9 +48,14 @@ export const appSlice = createSlice({
       const { index, id, value } = action.payload;
       state.types[id][index].opt = value.value;
     },
+    changeTitle(state: any, action) {
+      console.log("action", action);
+      const { id, value } = action.payload;
+      state.types[id][1].data = value.value;
+    },
     removeField(state: any, action) {
       console.log("action", action);
-      const { index, id, value } = action.payload;
+      const { index, id } = action.payload;
       state.types[id].filter((v: any, ind: any) => ind !== index);
     },
   },
@@ -55,6 +68,7 @@ export const {
   changeField,
   removeField,
   removeType,
+  changeTitle,
 } = appSlice.actions;
 
 export default appSlice.reducer;

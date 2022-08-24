@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { addField, removeType } from "../../redux/typeSlice";
 import CustomInput from "./CustomInput";
-import "./form.css";
+
 
 const Dynamic = ({ formValues, id }: any) => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const Dynamic = ({ formValues, id }: any) => {
     { value: "text", label: "small text" },
     { value: "LongText", label: "long text" },
     { value: "Date", label: "date" },
-    // { value: "Number", label: "number" },
+    { value: "Number", label: "number" },
   ];
   const customStyles = {
     option: (provided: any, state: any) => ({
@@ -46,12 +46,15 @@ const Dynamic = ({ formValues, id }: any) => {
       //   label: <HiSelector />
     }),
   };
+
   const addFild = (p: any) => {
     dispatch(addField({ id: p.id, value: p.value }));
   };
   const types = useSelector((state: any) => state.type.types);
+  console.log('types', types)
+
   const formInputs = formValues.map((e: any, index: any) => {
-    const { opt, value, label, se } = e;
+    const { opt, label, se, select } = e;
     return (
       <section key={index}>
         <Controller
@@ -61,7 +64,8 @@ const Dynamic = ({ formValues, id }: any) => {
             return (
               <div>
                 <CustomInput
-                  type={"text"}
+                  // type={opt}
+                  type={select ? "select" : "text"}
                   // value={field.value}
                   value={types[id][index].value}
                   onChange={field.onChange}
@@ -101,6 +105,9 @@ const Dynamic = ({ formValues, id }: any) => {
           <div style={{ marginTop: "15px" }}>
             <Select
               // defaultValue={selectedOption}
+              // components={{
+              //   ValueContainer: CustomValueContainer,
+              // }}
               onChange={(value) => addFild({ value, id })}
               options={options}
               styles={customStyles}

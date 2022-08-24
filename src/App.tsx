@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Layout from "./Components/Layout";
-import ResLayout from "./Components/ResLayout";
-import SingleRes from "./Components/SingleRes";
+import ResourceLayout from "./Components/Layouts/ResourceLayout";
+import SingleResource from "./Pages/SingleResource";
 import Home from "./Pages/Home";
 import ManageTypes from "./Pages/ManageTypes";
+import Layout from "./Components/Layouts/Layout";
 
 function App() {
   return (
@@ -14,8 +14,8 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="mtypes" element={<ManageTypes />} />
-            <Route path="types" element={<ResLayout />}>
-              <Route path=":type" element={<SingleRes />} />
+            <Route path="types" element={<ResourceLayout />}>
+              <Route path=":type" element={<SingleResource />} />
             </Route>
           </Route>
         </Routes>
