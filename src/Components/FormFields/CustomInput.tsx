@@ -10,7 +10,7 @@ function CustomInput(
 ) {
   const types = useSelector((state: any) => state.type.types);
 
-  const tOptions = types[id]
+  const tOptions = types[id] 
     .slice(2)
     .map((v: any) => ({ label: v.value, value: v.value }))
     .filter((v: any) => v.value !== "");
