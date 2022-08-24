@@ -1,7 +1,7 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
-import { addResValue } from "../../redux/resSlice";
+import { addResValue } from "../../redux/resourceSlice";
 
 function CustomResInput(
   { type, onChange, value, label, index, id, formId }: any,

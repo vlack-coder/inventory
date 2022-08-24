@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import ResourceForm from "../Components/FormFields/ResourceForm";
-import { addResource } from "../redux/resSlice";
+import { addResource } from "../redux/resourceSlice";
 
 function Home() {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ function Home() {
     <div>
       {/* <Dynamic/> */}
       <button
-        onClick={() => addItem("type")}
+        // onClick={() => addItem("type")}
         style={{
           fontSize: "14px",
           padding: "6px 30px",

@@ -1,9 +1,8 @@
-import React from "react";
-import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { addResource } from "../redux/resSlice";
-import ResForm from "../Components/FormFields/ResourceForm";
+import { useParams } from "react-router";
 import { v4 as uuid } from "uuid";
+import ResForm from "../Components/FormFields/ResourceForm";
+import { addResource } from "../redux/resourceSlice";
 
 function SingleRes() {
   const dispatch = useDispatch();

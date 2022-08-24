@@ -1,7 +1,7 @@
 import { Controller, useForm } from "react-hook-form";
 
 import { useDispatch, useSelector } from "react-redux";
-import { removeRes } from "../../redux/resSlice";
+import { removeRes } from "../../redux/resourceSlice";
 
 import CustomResInput from "./CustomResourceInput";
 
