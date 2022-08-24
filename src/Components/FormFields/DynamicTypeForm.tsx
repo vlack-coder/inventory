@@ -96,6 +96,7 @@ const Dynamic = ({ formValues, id }: any) => {
           x
         </p>
       </div>
+      
       <div className="resform__body">
         <div style={{ display: "flex", flexDirection: "column" }}>
           {formInputs.slice(0, 2)}
