@@ -17,7 +17,7 @@ export const appSlice = createSlice({
           label: "Object title",
           value: "",
           opt: "select",
-          data: "",
+          data: "Title",
           se: true,
           select: true,
         },
@@ -42,6 +42,7 @@ export const appSlice = createSlice({
       console.log("action", action);
       const { index, id, value } = action.payload;
       state.types[id][index].value = value;
+      // state.types[id][1].data = value;ZZ
     },
     changeField(state: any, action) {
       console.log("action", action);

@@ -26,20 +26,18 @@ function CustomInput(
     dispatch(changeField(p));
   };
   
-  const addTitle = (p: any) => {
-    dispatch(changeTitle(p));
-  };
   // const selectTitle = (p: any) => {
   //   dispatch(changeField(p));
   // };
-  const options = [
+  const fieldOptions = [
     { value: "text", label: "small text" },
     { value: "LongText", label: "long text" },
     { value: "Date", label: "date" },
     { value: "Number", label: "number" },
     { value: "remove", label: "remove" },
   ];
-  const [selectedOption, setSelectedOption] = useState(options);
+  const [selectedOption, setSelectedOption] = useState(fieldOptions);
+  // const [selectedOption, setSelectedOption] = useState(options);
   // titleCustomStyles
   const titleCustomStyles = {
     option: (provided: any, state: any) => ({
@@ -116,11 +114,11 @@ function CustomInput(
             />
             {!se && (
               <Select
-                // defaultValue={options}
                 onChange={(value) => selectField({ value, id, index })}
-                defaultValue={options[0]}
-                // value={defaultValue(selectedOption, value)}
-                options={options}
+                // defaultValue={fieldOptions[0]}
+                defaultValue={{ value: opt, label: opt }}
+                value={defaultValue(selectedOption, value)}
+                options={fieldOptions}
                 styles={customStyles}
                 placeholder="Add Field"
               />
@@ -134,7 +132,7 @@ function CustomInput(
           <p>{label}</p>
           <Select
             // defaultValue={options}
-            onChange={(value) => addTitle({ value, id })}
+            // onChange={(value) => selectField({ value, id, index })}
             defaultValue={tOptions[0]}
             // value={defaultValue(selectedOption, value)}
             options={tOptions}

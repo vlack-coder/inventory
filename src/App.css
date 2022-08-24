@@ -119,5 +119,10 @@ button {
   display: block;
   width: 100%;
   height: 23px;
-  margin-top: 4px;
+  margin-top: 1.5px;
+  border: 1px solid rgb(186, 181, 181);
+}
+.react-datepicker__input-container{
+  border: none;
+
 }
