@@ -26,7 +26,7 @@ export const appSlice = createSlice({
       console.log("state.types", state.types);
     },
     removeType(state: any, action) {
-      console.log("state.types", state);
+      console.log("state.types", state.types[action.payload.typeId]);
       delete state.types[action.payload.typeId];
     },
     addField(state: any, action) {
@@ -47,6 +47,10 @@ export const appSlice = createSlice({
     changeField(state: any, action) {
       console.log("action", action);
       const { index, id, value } = action.payload;
+      if (value.value === "remove") {
+        state.types[id].splice(index, 1)
+        return
+      }
       state.types[id][index].opt = value.value;
     },
     changeTitle(state: any, action) {
