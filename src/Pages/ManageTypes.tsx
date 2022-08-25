@@ -6,7 +6,7 @@ import { addType } from "../redux/typeSlice";
 function ManageTypes() {
   const dispatch = useDispatch();
   const types = useSelector((state: any) => state.type.types);
-  const addTyp = () => {
+  const createType = () => {
     dispatch(addType({ id: uuid().slice(0, 8) }));
   };
 
@@ -22,7 +22,7 @@ function ManageTypes() {
           top: 50,
           right: 50,
         }}
-        onClick={addTyp}
+        onClick={createType}
       >
         Add Types
       </button>

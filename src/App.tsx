@@ -4,14 +4,14 @@ import ResourceLayout from "./Components/Layouts/ResourceLayout";
 import SingleResource from "./Pages/SingleResource";
 import Home from "./Pages/Home";
 import ManageTypes from "./Pages/ManageTypes";
-import Layout from "./Components/Layouts/Layout";
+import AppLayout from "./Components/Layouts/Layout";
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<AppLayout />}>
             <Route index element={<Home />} />
             <Route path="mtypes" element={<ManageTypes />} />
             <Route path="types" element={<ResourceLayout />}>
