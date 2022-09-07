@@ -1,16 +1,17 @@
-import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
-import { addValue, changeField } from "../../redux/typeSlice";
+import { addValue, changeField, changeTitle } from "../../redux/typeSlice";
 
 function CustomInput(
   { type, onChange, value, label, index, id, se, opt }: any,
   ...rest: any
 ) {
   const types = useSelector((state: any) => state.type.types);
-
-  const tOptions = types[id] 
+  console.log("first", types[id][1]);
+  const titleObj = types[id][1];
+  const selectTitle = { label: titleObj.data, value: titleObj.data };
+  const tOptions = types[id]
     .slice(2)
     .map((v: any) => ({ label: v.value, value: v.value }))
     .filter((v: any) => v.value !== "");
@@ -19,11 +20,14 @@ function CustomInput(
   const changeText = (p: any) => {
     dispatch(addValue(p));
   };
-  const defaultValue = (options: any, value: any) => {
-    return options ? options.find((option: any) => option.value === value) : "";
-  };
+  // const defaultValue = (options: any, value: any) => {
+  //   return options ? options.find((option: any) => option.value === value) : "";
+  // };
   const selectField = (p: any) => {
     dispatch(changeField(p));
+  };
+  const titleChange = (p: any) => {
+    dispatch(changeTitle(p));
   };
 
   const fieldOptions = [
@@ -33,7 +37,7 @@ function CustomInput(
     { value: "Number", label: "number" },
     { value: "remove", label: "remove" },
   ];
-  const [selectedOption, setSelectedOption] = useState(fieldOptions);
+  // const [selectedOption, setSelectedOption] = useState(fieldOptions);
 
   const titleCustomStyles = {
     option: (provided: any, state: any) => ({
@@ -105,7 +109,7 @@ function CustomInput(
               <Select
                 onChange={(value) => selectField({ value, id, index })}
                 defaultValue={{ value: opt, label: opt }}
-                value={defaultValue(selectedOption, value)}
+                // value={defaultValue(selectedOption, value)}
                 options={fieldOptions}
                 styles={customStyles}
                 placeholder="Add Field"
@@ -119,7 +123,9 @@ function CustomInput(
         <div className="inp" style={{ marginBottom: "10px" }}>
           <p>{label}</p>
           <Select
-            defaultValue={tOptions[0]}
+            onChange={(value) => titleChange({ value, id })}
+            // value={defaultValue(selectedOption1, value)}
+            defaultValue={selectTitle}
             options={tOptions}
             styles={titleCustomStyles}
             placeholder="Add Field"
